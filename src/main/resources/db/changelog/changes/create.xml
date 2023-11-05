@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="status" author="postgres">
+        <sqlFile path="sql/status.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="users" author="postgres">
+        <sqlFile path="sql/users.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="stands" author="postgres">
+        <sqlFile path="sql/stands.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="items" author="postgres">
+        <sqlFile path="sql/items.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="inventory" author="postgres">
+        <sqlFile path="sql/inventory.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+    <changeSet id="fights" author="postgres">
+        <sqlFile path="sql/fights.sql" relativeToChangelogFile="true"/>
+    </changeSet>
+
+</databaseChangeLog>
