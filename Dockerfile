@@ -4,5 +4,5 @@ COPY pom.xml .
 RUN mvn clean package -Dmaven.test.skip=true
 
 FROM openjdk:17
-COPY --from=build /target/*.jar /target/*.jar
+COPY --from=build /target/gogo-0.0.1-SNAPSHOT.jar /target/gogo-0.0.1-SNAPSHOT.jar
 ENTRYPOINT ["java","-jar","/target/gogo-0.0.1-SNAPSHOT.jar"]

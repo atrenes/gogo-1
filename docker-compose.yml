@@ -14,7 +14,8 @@ services:
     image: gogo:latest
     container_name: gogobackend
     environment:
-      - 'code=test'
+      - 'CODE=test'
+      - 'PAGINATION_MAX_SIZE=50'
     build:
       context: .
       dockerfile: Dockerfile
