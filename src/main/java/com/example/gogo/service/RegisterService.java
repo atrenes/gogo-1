@@ -8,7 +8,6 @@ import com.example.gogo.exception.UserAlreadyExistException;
 import com.example.gogo.repository.StatusRepository;
 import com.example.gogo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +24,7 @@ public class RegisterService {
         Status status = statusRepository.findByName(userDto.getStatusName())
                 .orElseThrow(() -> new StatusNotFoundException("Status name not found"));
         if (userRepository.findByName(userDto.getName()).isPresent()) {
-            throw new UserAlreadyExistException("Пользователь с таким именем уже существует");
+            throw new UserAlreadyExistException("User with that name already exists");
         }
 
         User user = User.builder()
