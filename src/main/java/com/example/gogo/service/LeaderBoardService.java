@@ -5,24 +5,23 @@ import com.example.gogo.entity.Stand;
 import com.example.gogo.exception.WrongLeaderBoardCountException;
 import com.example.gogo.mapping.StandMapper;
 import com.example.gogo.repository.StandRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class LeaderBoardService {
 
-    private Integer paginationMaxSize = 50;
+    @Value("${PAGINATION_MAX_SIZE:50}")
+    private int paginationMaxSize;
 
-    @Autowired
-    private StandRepository standRepository;
-    @Autowired
-    private StandMapper standMapper;
+    private final StandRepository standRepository;
+    private final StandMapper standMapper;
 
 
     public List<StandDto> leaderBoard(Integer count) {
@@ -32,7 +31,7 @@ public class LeaderBoardService {
         List<Stand> stands = new ArrayList<>();
         int page = 0;
         do {
-            stands.addAll(standRepository.findAll(PageRequest.of(page, count, Sort.by("rating"))).stream().collect(Collectors.toList()));
+            stands.addAll(standRepository.findAll(PageRequest.of(page, count, Sort.by("rating"))).stream().toList());
             page++;
         } while (stands.size() % paginationMaxSize == 0 && stands.size() < count);
         return standMapper.mapStandList(stands);

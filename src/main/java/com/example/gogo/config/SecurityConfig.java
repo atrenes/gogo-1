@@ -1,6 +1,6 @@
 package com.example.gogo.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +15,7 @@ import java.util.Map;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
     private final Map<String, String[]> patternMap = Map.of(
             "admin", new String[]{
@@ -34,8 +35,7 @@ public class SecurityConfig {
             }
     );
 
-    @Autowired
-    private Filter filter;
+    private final Filter filter;
 
     @Bean
     public PasswordEncoder passwordEncoder(){

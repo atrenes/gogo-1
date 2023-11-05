@@ -2,7 +2,7 @@ package com.example.gogo.controller;
 
 import com.example.gogo.dto.StandDto;
 import com.example.gogo.service.LeaderBoardService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,9 +13,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/gogo/leaderboard")
+@RequiredArgsConstructor
 public class LeaderBoardController {
-    @Autowired
-    private LeaderBoardService leaderBoardService;
+    private final LeaderBoardService leaderBoardService;
 
     @GetMapping("")
     public ResponseEntity<List<StandDto>> leaderBoard(@RequestParam(name = "count") Integer count) {

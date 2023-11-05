@@ -8,7 +8,9 @@ import com.example.gogo.repository.FightRepository;
 import com.example.gogo.repository.InventoryRepository;
 import com.example.gogo.repository.ItemRepository;
 import com.example.gogo.repository.StandRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -20,19 +22,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class FightService {
 
-    private Integer paginationMaxSize = 50;
-    @Autowired
-    private StandRepository standRepository;
-    @Autowired
-    private StandMapper standMapper;
-    @Autowired
-    private FightRepository fightRepository;
-    @Autowired
-    private ItemRepository itemRepository;
-    @Autowired
-    private InventoryRepository inventoryRepository;
+    @Value("${PAGINATION_MAX_SIZE:50}")
+    private int paginationMaxSize;
+
+
+    //TODO use single repository only
+    private final StandRepository standRepository;
+    private final StandMapper standMapper;
+    private final FightRepository fightRepository;
+    private final ItemRepository itemRepository;
+    private final InventoryRepository inventoryRepository;
 
     @Transactional
     public StandDto startFight(Long standId) {
@@ -41,7 +43,7 @@ public class FightService {
         List<Stand> stands = new ArrayList<>();
         int page = 0;
         do {
-            stands.addAll(standRepository.findAll(PageRequest.of(page, paginationMaxSize)).stream().collect(Collectors.toList()));
+            stands.addAll(standRepository.findAll(PageRequest.of(page, paginationMaxSize)).stream().toList());
             page++;
         } while (stands.size() % paginationMaxSize == 0);
 
@@ -55,7 +57,7 @@ public class FightService {
         List<Item> items = new ArrayList<>();
         page = 0;
         do {
-            items.addAll(itemRepository.findAll(PageRequest.of(page, paginationMaxSize, Sort.by("dropPossibility"))).stream().collect(Collectors.toList()));
+            items.addAll(itemRepository.findAll(PageRequest.of(page, paginationMaxSize, Sort.by("dropPossibility"))).stream().toList());
             page++;
         } while (items.size() % paginationMaxSize == 0);
 

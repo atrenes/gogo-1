@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,13 +16,13 @@ import org.springframework.web.filter.GenericFilterBean;
 import java.io.IOException;
 
 @Component
+@RequiredArgsConstructor
 public class Filter extends GenericFilterBean {
     private final String AUTHORIZATION = "Authorization";
 
-    @Autowired
-    private CustomUserDetailService customUserDetailService;
-    @Autowired
-    private TokenUtil tokenUtil;
+    private final CustomUserDetailService customUserDetailService;
+
+    private final TokenUtil tokenUtil;
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {

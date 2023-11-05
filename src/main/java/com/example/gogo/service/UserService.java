@@ -11,7 +11,8 @@ import com.example.gogo.mapping.ItemMapper;
 import com.example.gogo.repository.FightRepository;
 import com.example.gogo.repository.InventoryRepository;
 import com.example.gogo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -20,24 +21,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    private final Integer paginationMaxSize = 50;
+    @Value("${PAGINATION_MAX_SIZE:50}")
+    private int paginationMaxSize;
 
-    @Autowired
-    private InventoryRepository inventoryRepository;
-
-    @Autowired
-    private ItemMapper itemMapper;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private FightMapper fightMapper;
-
-    @Autowired
-    private FightRepository fightRepository;
+    private final InventoryRepository inventoryRepository;
+    private final ItemMapper itemMapper;
+    private final UserRepository userRepository;
+    private final FightMapper fightMapper;
+    private final FightRepository fightRepository;
 
 
     public List<ItemDto> getInventory(GetInventoryDto getInventoryDto) {

@@ -6,6 +6,7 @@ import com.example.gogo.dto.ItemDto;
 import com.example.gogo.dto.StandDto;
 import com.example.gogo.service.FightService;
 import com.example.gogo.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,12 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/gogo/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private FightService fightService;
+    private final UserService userService;
+    private final FightService fightService;
 
     @PostMapping("inventory")
     public ResponseEntity<List<ItemDto>> getInventory(@RequestBody GetInventoryDto getInventoryDto) {

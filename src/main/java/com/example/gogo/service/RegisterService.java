@@ -7,21 +7,18 @@ import com.example.gogo.exception.StatusNotFoundException;
 import com.example.gogo.exception.UserAlreadyExistException;
 import com.example.gogo.repository.StatusRepository;
 import com.example.gogo.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class RegisterService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private StatusRepository statusRepository;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final StatusRepository statusRepository;
+    private final PasswordEncoder passwordEncoder;
 
 
     public Long register(UserDtoForRegister userDto) {

@@ -7,18 +7,17 @@ import com.example.gogo.exception.UserAlreadyHasStandException;
 import com.example.gogo.exception.UserNotFoundByIdException;
 import com.example.gogo.repository.StandRepository;
 import com.example.gogo.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@RequiredArgsConstructor
 public class StandService {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private StandRepository standRepository;
+    private final UserRepository userRepository;
+    private final StandRepository standRepository;
 
     @Transactional
     public Long create(CreateStandDto createStandDto) {
