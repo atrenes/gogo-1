@@ -6,21 +6,24 @@ import com.example.gogo.entity.User;
 import com.example.gogo.exception.UserAlreadyHasStandException;
 import com.example.gogo.exception.UserNotFoundByIdException;
 import com.example.gogo.repository.StandRepository;
-import com.example.gogo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class StandService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final StandRepository standRepository;
 
     @Transactional
     public Long create(CreateStandDto createStandDto) {
-        User user = userRepository.findById(createStandDto.getUserId())
+        User user = userService.findById(createStandDto.getUserId())
                 .orElseThrow(UserNotFoundByIdException::new);
 
         if (user.getStand() != null)
@@ -38,7 +41,7 @@ public class StandService {
 
         Stand standSaved = standRepository.save(stand);
         user.setStand(standSaved);
-        userRepository.save(user);
+        userService.save(user);
         return standSaved.getId();
     }
 }

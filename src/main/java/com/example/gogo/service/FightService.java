@@ -5,12 +5,12 @@ import com.example.gogo.entity.*;
 import com.example.gogo.exception.StandNotFoundByIdException;
 import com.example.gogo.mapping.StandMapper;
 import com.example.gogo.repository.FightRepository;
-import com.example.gogo.repository.InventoryRepository;
-import com.example.gogo.repository.ItemRepository;
 import com.example.gogo.repository.StandRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,13 +27,11 @@ public class FightService {
     @Value("${PAGINATION_MAX_SIZE:50}")
     private int paginationMaxSize;
 
-
-    //TODO use single repository only
     private final StandRepository standRepository;
     private final StandMapper standMapper;
     private final FightRepository fightRepository;
-    private final ItemRepository itemRepository;
-    private final InventoryRepository inventoryRepository;
+    private final ItemService itemService;
+    private final InventoryService inventoryService;
 
     @Transactional
     public StandDto startFight(Long standId) {
@@ -56,7 +54,7 @@ public class FightService {
         List<Item> items = new ArrayList<>();
         page = 0;
         do {
-            items.addAll(itemRepository.findAll(PageRequest.of(page, paginationMaxSize, Sort.by("dropPossibility"))).stream().toList());
+            items.addAll(itemService.findAll(PageRequest.of(page, paginationMaxSize, Sort.by("dropPossibility"))).stream().toList());
             page++;
         } while (items.size() % paginationMaxSize == 0);
 
@@ -77,9 +75,13 @@ public class FightService {
         fightRepository.save(fight);
 
         if (dropped != null)
-            inventoryRepository.save(new Inventory(new InventoryPk(winner.getOwner(), dropped)));
+            inventoryService.save(new Inventory(new InventoryPk(winner.getOwner(), dropped)));
 
 
         return standMapper.mapStand(winner);
+    }
+
+    public Page<Fight> findAll(Pageable pageable) {
+        return this.fightRepository.findAll(pageable);
     }
 }

@@ -8,16 +8,14 @@ import com.example.gogo.exception.UserDontHaveStandException;
 import com.example.gogo.exception.UserNotFoundByIdException;
 import com.example.gogo.mapping.FightMapper;
 import com.example.gogo.mapping.ItemMapper;
-import com.example.gogo.repository.FightRepository;
-import com.example.gogo.repository.InventoryRepository;
 import com.example.gogo.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,18 +25,18 @@ public class UserService {
     @Value("${PAGINATION_MAX_SIZE:50}")
     private int paginationMaxSize;
 
-    private final InventoryRepository inventoryRepository;
+    private final InventoryService inventoryService;
     private final ItemMapper itemMapper;
     private final UserRepository userRepository;
     private final FightMapper fightMapper;
-    private final FightRepository fightRepository;
+    private final FightService fightService;
 
 
     public List<ItemDto> getInventory(GetInventoryDto getInventoryDto) {
         List<Inventory> inventories = new ArrayList<>();
         int page = 0;
         do {
-            inventories.addAll(inventoryRepository.findAll(PageRequest.of(page, getInventoryDto.getCount())).stream().toList());
+            inventories.addAll(inventoryService.findAll(PageRequest.of(page, getInventoryDto.getCount())).stream().toList());
             page++;
         } while (inventories.size() % paginationMaxSize == 0 && inventories.size() < getInventoryDto.getCount());
 
@@ -59,7 +57,7 @@ public class UserService {
         List<Fight> fights = new ArrayList<>();
         int page = 0;
         do {
-            fights.addAll(fightRepository.findAll(PageRequest.of(page, paginationMaxSize)).stream().toList());
+            fights.addAll(fightService.findAll(PageRequest.of(page, paginationMaxSize)).stream().toList());
             page++;
         } while (fights.size() % paginationMaxSize == 0);
 
@@ -71,5 +69,13 @@ public class UserService {
                 .filter(fight -> fight.getFirstStand().getOwner().equals(user) || fight.getSecondStand().getOwner().equals(user))
                 .collect(Collectors.toList())
         );
+    }
+
+    public Optional<User> findById(Long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public void save(User user) {
+        this.userRepository.save(user);
     }
 }
