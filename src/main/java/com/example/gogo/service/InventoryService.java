@@ -1,7 +1,6 @@
 package com.example.gogo.service;
 
 import com.example.gogo.entity.Inventory;
-import com.example.gogo.entity.User;
 import com.example.gogo.repository.InventoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

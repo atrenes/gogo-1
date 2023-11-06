@@ -7,12 +7,8 @@ import com.example.gogo.exception.UserAlreadyHasStandException;
 import com.example.gogo.exception.UserNotFoundByIdException;
 import com.example.gogo.repository.StandRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
