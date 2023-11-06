@@ -26,7 +26,7 @@ public class LeaderBoardService {
 
     public List<StandDto> leaderBoard(Integer count) {
         if (count == null || count <= 0)
-            throw new WrongLeaderBoardCountException("Must be more than 0");
+            throw new WrongLeaderBoardCountException();
 
         List<Stand> stands = new ArrayList<>();
         int page = 0;

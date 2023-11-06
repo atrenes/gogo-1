@@ -54,7 +54,7 @@ public class UserService {
 
     public List<FightDto> getFights(Long userId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundByIdException("User ID not found"));
+                .orElseThrow(UserNotFoundByIdException::new);
 
         List<Fight> fights = new ArrayList<>();
         int page = 0;
@@ -65,7 +65,7 @@ public class UserService {
 
         Stand stand = user.getStand();
         if (stand == null)
-            throw new UserDontHaveStandException("This user doesn't have a stand");
+            throw new UserDontHaveStandException();
         return fightMapper.mapFightList(
                 fights.stream()
                 .filter(fight -> fight.getFirstStand().getOwner().equals(user) || fight.getSecondStand().getOwner().equals(user))

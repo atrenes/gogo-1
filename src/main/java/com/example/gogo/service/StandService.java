@@ -21,10 +21,10 @@ public class StandService {
     @Transactional
     public Long create(CreateStandDto createStandDto) {
         User user = userRepository.findById(createStandDto.getUserId())
-                .orElseThrow(() -> new UserNotFoundByIdException("User ID not found"));
+                .orElseThrow(UserNotFoundByIdException::new);
 
         if (user.getStand() != null)
-            throw new UserAlreadyHasStandException("This user already has a stand");
+            throw new UserAlreadyHasStandException();
 
         Stand stand = Stand.builder()
                 .durability(createStandDto.getDurability())

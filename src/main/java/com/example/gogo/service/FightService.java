@@ -9,7 +9,6 @@ import com.example.gogo.repository.InventoryRepository;
 import com.example.gogo.repository.ItemRepository;
 import com.example.gogo.repository.StandRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -39,7 +38,7 @@ public class FightService {
     @Transactional
     public StandDto startFight(Long standId) {
         Stand stand = standRepository.findById(standId)
-                .orElseThrow(() -> new StandNotFoundByIdException("Stand with id not found"));
+                .orElseThrow(StandNotFoundByIdException::new);
         List<Stand> stands = new ArrayList<>();
         int page = 0;
         do {

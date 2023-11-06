@@ -22,9 +22,9 @@ public class RegisterService {
 
     public Long register(UserDtoForRegister userDto) {
         Status status = statusRepository.findByName(userDto.getStatusName())
-                .orElseThrow(() -> new StatusNotFoundException("Status name not found"));
+                .orElseThrow(StatusNotFoundException::new);
         if (userRepository.findByName(userDto.getName()).isPresent()) {
-            throw new UserAlreadyExistException("User with that name already exists");
+            throw new UserAlreadyExistException();
         }
 
         User user = User.builder()
