@@ -20,6 +20,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LeaderBoardTest extends CustomPostgreSQLContainer {
     @InjectMocks
     private LeaderBoardService leaderBoardService;
+    @Mock
+    private StandRepository standRepository;
+    @Mock
+    private StandMapper standMapper;
 
     @Test
     public void wrongCountTest() {
@@ -28,6 +32,7 @@ public class LeaderBoardTest extends CustomPostgreSQLContainer {
 
     @Test
     public void emptyListTest() {
+        List<StandDto> list = new ArrayList<>();
         assertEquals(0, leaderBoardService.leaderBoard(1).size());
     }
 }
