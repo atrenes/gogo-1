@@ -6,16 +6,17 @@ import com.example.gogo.exception.UserNotFoundByNameException;
 import com.example.gogo.exception.WrongPasswordException;
 import com.example.gogo.repository.UserRepository;
 import com.example.gogo.util.TokenUtil;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class LoginService {
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final TokenUtil tokenUtil;
+    private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+    private TokenUtil tokenUtil;
 
 
     public String login(UserDtoForLogin userDtoForLogin) {

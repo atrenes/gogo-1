@@ -9,6 +9,7 @@ import com.example.gogo.exception.UserNotFoundByIdException;
 import com.example.gogo.mapping.FightMapper;
 import com.example.gogo.mapping.ItemMapper;
 import com.example.gogo.repository.UserRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;

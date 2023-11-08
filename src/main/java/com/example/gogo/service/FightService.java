@@ -6,6 +6,7 @@ import com.example.gogo.exception.StandNotFoundByIdException;
 import com.example.gogo.mapping.StandMapper;
 import com.example.gogo.repository.FightRepository;
 import com.example.gogo.repository.StandRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;

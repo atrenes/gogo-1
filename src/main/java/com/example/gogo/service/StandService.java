@@ -6,16 +6,17 @@ import com.example.gogo.entity.User;
 import com.example.gogo.exception.UserAlreadyHasStandException;
 import com.example.gogo.exception.UserNotFoundByIdException;
 import com.example.gogo.repository.StandRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class StandService {
 
-    private final UserService userService;
-    private final StandRepository standRepository;
+    private UserService userService;
+    private StandRepository standRepository;
 
     @Transactional
     public Long create(CreateStandDto createStandDto) {
