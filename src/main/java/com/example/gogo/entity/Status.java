@@ -3,6 +3,7 @@ package com.example.gogo.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "status")
+@Generated
 public class Status {
     @Id
     @Column(name = "id")

@@ -2,12 +2,14 @@ package com.example.gogo.mapping;
 
 import com.example.gogo.dto.ItemDto;
 import com.example.gogo.entity.Item;
+import lombok.Generated;
 import org.mapstruct.Mapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+@Generated
 public interface ItemMapper {
 
     ItemDto mapItem(Item item);

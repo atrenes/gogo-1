@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -12,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "items")
+@Generated
 public class Item {
     @Id
     @Column(name = "id")

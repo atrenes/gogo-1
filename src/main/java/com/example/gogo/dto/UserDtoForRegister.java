@@ -1,14 +1,12 @@
 package com.example.gogo.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Generated
 public class UserDtoForRegister {
     private String name;
     private String password;

@@ -5,6 +5,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class InventoryPk implements Serializable {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

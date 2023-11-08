@@ -24,9 +24,7 @@ public class SecurityConfig {
             },
             "default", new String[]{
                     "*/leaderboard",
-                    "*/inventory",
-                    "*/fights/*",
-                    "*/leaderboard"
+                    "*/fights/*"
             },
             "vip", new String[]{
                     "*/leaderboard",
