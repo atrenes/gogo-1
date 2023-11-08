@@ -5,7 +5,10 @@ import com.example.gogo.entity.Stand;
 import com.example.gogo.exception.WrongLeaderBoardCountException;
 import com.example.gogo.mapping.StandMapper;
 import com.example.gogo.repository.StandRepository;
+import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -21,6 +24,7 @@ public class LeaderBoardService {
     private int paginationMaxSize;
 
     private final StandRepository standRepository;
+
     private final StandMapper standMapper;
 
 
@@ -28,7 +32,12 @@ public class LeaderBoardService {
         if (count == null || count <= 0)
             throw new WrongLeaderBoardCountException();
 
+        if (standRepository.findAll().size() == 0) {
+            return List.of();
+        }
+
         List<Stand> stands = new ArrayList<>();
+
         int page = 0;
         do {
             stands.addAll(standRepository.findAll(PageRequest.of(page, count, Sort.by("rating"))).stream().toList());
