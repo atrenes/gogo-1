@@ -13,7 +13,7 @@ import java.util.Date;
 @Component
 public class TokenUtil {
 
-    @Value("${CODE}")
+    @Value("${CODE:test}")
     private String code;
 
     public String generateAccessToken(String login) {
