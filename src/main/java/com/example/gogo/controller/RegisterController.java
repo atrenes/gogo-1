@@ -2,6 +2,7 @@ package com.example.gogo.controller;
 
 import com.example.gogo.dto.UserDtoForRegister;
 import com.example.gogo.service.RegisterService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("api/v1/gogo/register")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class RegisterController {
 
-    private final RegisterService registerService;
+    private RegisterService registerService;
 
     @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody UserDtoForRegister userDtoForRegister) {
