@@ -5,6 +5,7 @@ import com.example.gogo.entity.Status;
 import com.example.gogo.entity.User;
 import com.example.gogo.exception.StatusNotFoundException;
 import com.example.gogo.exception.UserAlreadyExistException;
+import com.example.gogo.exception.WeakPasswordException;
 import com.example.gogo.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,9 @@ public class RegisterService {
                 .orElseThrow(StatusNotFoundException::new);
         if (userRepository.findByName(userDto.getName()).isPresent()) {
             throw new UserAlreadyExistException();
+        }
+        if (userDto.getPassword().length() < 5) {
+            throw new WeakPasswordException();
         }
 
         User user = User.builder()
